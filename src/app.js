@@ -8,8 +8,9 @@ accounts.set('adam',3000)
 accounts.set('eve',3020)
 accounts.set('mega-corp',99999)
 
+
 app.get('/', (req,res) => {
-	res.send('Hello world');
+	res.sendFile(__dirname + "/client.html");
 })
 
 app.get('/balance', (req,res) => {

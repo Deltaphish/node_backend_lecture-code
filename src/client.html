@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<h1>SafeBank [secrect managment client]</h1>
+		<h2>Transfer tool</h2>
+		<form>
+			<label>From</label>
+			<input type="text" name="from">
+			<label>To</label>
+			<input type="text" name="to">
+			<label>Amount</label>
+			<input type="number" name="amount">
+			<input type="submit">
+		</form>
+		<h3 id="transfer-status"></h3>
+		<ul id="accounts"></ul>
+
+		<script>
+
+			const accounts_list = document.getElementById("accounts")
+			const transfer_status = document.getElementById("transfer-status")
+			const form = document.querySelector('form');
+
+			form.addEventListener('submit', event => {
+				const query = new URLSearchParams(new FormData(form))
+				fetch('/transfer?' + query.toString())
+					.then(response => response.text())
+					.then(data => {
+						transfer_status.innerText = data;
+						update_accounts();
+					})
+				event.preventDefault();
+				
+			});
+
+			update_accounts()
+
+
+			function update_accounts() {
+
+				accounts_list.textContent = '';
+
+				const names = ["adam", "eve", "mega-corp"];
+				let accounts = names.map(name => {
+					return fetch('/balance?name='+name)
+							.then(response => response.text())
+							.then(data => data)
+						
+				});
+
+				Promise.all(accounts)
+					.then( values => {
+						values.sort();
+						values.forEach(el => add_account_to_list(el))
+					});
+			}
+
+			function add_account_to_list(n) {
+				let li = document.createElement("li");
+				li.appendChild(document.createTextNode(n))
+				accounts_list.appendChild(li)
+			}
+
+		</script>
+	</body>
+</html>
