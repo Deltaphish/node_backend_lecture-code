@@ -50,7 +50,7 @@ app.get('/withdraw', (req,res) => {
 		if(amount <= balance){
 			const new_balance = balance - amount;
 			accounts.set(name,new_balance);
-			res.send(`The withdrawal of ${amount} from account ${name} was successfull.\n current balance ${new_balance}`)
+			res.send(`The withdrawal of ${amount} from account ${name} was successful.`)
 			return
 		}
 		else{
@@ -79,7 +79,7 @@ app.get('/deposit', (req,res) => {
 	if(accounts.has(name)){
 		const new_balance = accounts.get(name) + amount;
 		accounts.set(name,new_balance);
-		res.send(`The deposit of ${amount} from account ${name} was successfull.\n current balance ${new_balance}`)
+		res.send(`The deposit of ${amount} from account ${name} was successfull`)
 		return
 	}
 	res.status(404).send("No account found...")
@@ -119,7 +119,7 @@ app.get('/transfer', (req,res) => {
 			res.send(`The amount of ${amount} has been transfered from ${from} to ${to}`)
 			return
 		}
-		res.status(400).send(`The sender does not have the balance to transfere amount`)
+		res.status(400).send(`The payee does not have the balance to transfere amount`)
 		return
 	}
 	res.status(404).send("No account found...")
