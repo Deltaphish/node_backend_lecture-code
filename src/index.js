@@ -62,7 +62,7 @@ app.get('/withdraw', (req,res) => {
 
 app.get('/deposit', (req,res) => {
 
-	if(!req.query.name){
+	if(!req.query["name"]){
 		res.status(400).send("Please specify the name of the account")
 		return
 	}
@@ -78,7 +78,7 @@ app.get('/deposit', (req,res) => {
 	if(accounts.has(name)){
 		const new_balance = accounts.get(name) + amount;
 		accounts.set(name,new_balance);
-		res.send(`The withdrawal of ${amount} from account ${name} was successfull.\n current balance ${new_balance}`)
+		res.send(`The deposit of ${amount} from account ${name} was successfull.\n current balance ${new_balance}`)
 		return
 	}
 	res.status(404).send("No account found...")
