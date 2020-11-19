@@ -12,8 +12,14 @@ app.get('/', (req,res) => {
 	res.send('Hello world');
 })
 
-app.get('/account/:name/balance', (req,res) => {
-	const name = req.params["name"];
+app.get('/balance', (req,res) => {
+
+	if(!req.query.name){
+		res.status(404).send("Please specify the name of the account")
+		return
+	}
+
+	const name = req.query.name;
 	if(accounts.has(name)){
 		res.send(`current account balance for ${name}: ${accounts.get(name)}`);
 	}else{
@@ -21,17 +27,29 @@ app.get('/account/:name/balance', (req,res) => {
 	}
 })
 
-app.get('/account/:name/withdraw/:ammount(\\d+)', (req,res) => {
-	const name = req.params["name"]
-	const ammount = parseInt(req.params["ammount"])
+app.get('/withdraw', (req,res) => {
+
+	if(!req.query.name){
+		res.status(400).send("Please specify the name of the account")
+		return
+	}
+
+	if(!req.query.amount || isNaN(req.query.amount)){
+		res.status(400).send("Please specify amount")
+		return
+	}
+
+
+	const name = req.query.name
+	const amount = parseInt(req.query.amount)
 
 	if(accounts.has(name)){
 		const balance = accounts.get(name)
 
-		if(ammount <= balance){
-			const new_balance = balance - ammount;
+		if(amount <= balance){
+			const new_balance = balance - amount;
 			accounts.set(name,new_balance);
-			res.send(`The withdrawal of ${ammount} from account ${name} was successfull.\n current balance ${new_balance}`)
+			res.send(`The withdrawal of ${amount} from account ${name} was successfull.\n current balance ${new_balance}`)
 			return
 		}
 		else{
@@ -42,37 +60,62 @@ app.get('/account/:name/withdraw/:ammount(\\d+)', (req,res) => {
 	res.status(404).send("No account found...")
 })
 
-app.get('/account/:name/deposit/:ammount(\\d+)', (req,res) => {
-	const name = req.params["name"]
-	const ammount = parseInt(req.params["ammount"])
+app.get('/deposit', (req,res) => {
+
+	if(!req.query.name){
+		res.status(400).send("Please specify the name of the account")
+		return
+	}
+
+	if(!req.query.amount || isNaN(req.query.amount)){
+		res.status(400).send("Please specify amount")
+		return
+	}
+
+	const name = req.query.name
+	const amount = parseInt(req.query.amount)
 
 	if(accounts.has(name)){
-		const balance = accounts.get(name)
-
-		const new_balance = balance + ammount;
+		const new_balance = accounts.get(name) + amount;
 		accounts.set(name,new_balance);
-		res.send(`The deposit of ${ammount} from account ${name} was successfull.\n current balance ${new_balance}`)
-
+		res.send(`The withdrawal of ${amount} from account ${name} was successfull.\n current balance ${new_balance}`)
+		return
 	}
 	res.status(404).send("No account found...")
 })
 
 
-app.get('/transfere/:from/:to/:ammount(\\d+)', (req,res) => {
-	const from = req.params["from"]
-	const to = req.params["to"]
-	const ammount = parseInt(req.params["ammount"])
+app.get('/transfer', (req,res) => {
+
+	if(!req.query.to){
+		res.status(400).send("Please specify the name of the account")
+		return
+	}
+
+	if(!req.query.from){
+		res.status(400).send("Please specify the name of the account")
+		return
+	}
+
+	if(!req.query.amount || isNaN(req.query.amount)){
+		res.status(400).send("Please specify amount")
+		return
+	}
+
+	const from = req.query.from
+	const to = req.query.to
+	const amount = parseInt(req.query.amount)
 
 	if(accounts.has(from) && accounts.has(to)){
 		const from_balance = accounts.get(from)
-		if(ammount <= from_balance){
-			const new_from_balance = from_balance - ammount;
-			const new_to_balance = accounts.get(to) +  ammount;
+		if(amount <= from_balance){
+			const new_from_balance = from_balance - amount;
+			const new_to_balance = accounts.get(to) +  amount;
 
 			accounts.set(from, new_from_balance);
 			accounts.set(to, new_to_balance);
 
-			res.send(`The amount of ${ammount} has been transfered from ${from} to ${to}`)
+			res.send(`The amount of ${amount} has been transfered from ${from} to ${to}`)
 			return
 		}
 		res.status(400).send(`The sender does not have the balance to transfere amount`)
