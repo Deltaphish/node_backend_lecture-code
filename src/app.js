@@ -27,6 +27,10 @@ app.get('/balance', (req,res) => {
 		res.status(404).send("No account found...");
 	}
 })
+/*
+
+	withdraw and deposit is overkill?
+
 
 app.get('/withdraw', (req,res) => {
 
@@ -85,7 +89,7 @@ app.get('/deposit', (req,res) => {
 	res.status(404).send("No account found...")
 })
 
-
+*/
 app.get('/transfer', (req,res) => {
 
 	if(!req.query.to){
