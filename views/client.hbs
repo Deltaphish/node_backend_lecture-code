@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="/tailwind.css" rel="stylesheet">
 	</head>
-	<body>
+	<body class="bg-gray-100">
+
 		{{#if status_exists}}
 				{{#if status}}
 					<p>The transfer was a success!</p>
@@ -10,19 +14,30 @@
 					<p>The transfer failed...</p>
 				{{/if}}
 		{{/if}}
-
-		<h1>SafeBank [secrect managment client]</h1>
-		<h2>Transfer tool</h2>
-		<form method="POST" action="/transfer">
-			<label>From</label>
-			<input type="text" name="from">
-			<label>To</label>
-			<input type="text" name="to">
-			<label>Amount</label>
-			<input type="number" name="amount">
-			<input type="submit">
-		</form>
-		<h3 id="transfer-status">{{#each accounts}} <p> {{name}} :: {{balance}}</p> {{/each}}</p></h3>
+		<div class="grid grid-cols-2">
+			<div>
+			<h1>SafeBank [secrect managment client]</h1>
+			<h2>Transfer tool</h2>
+			<div>
+				<form method="POST" action="/transfer" class="flex flex-col">
+					<label>From</label>
+					<select id="from" name="from" class="w-32">
+						{{#each accounts}} <option value="{{name}}">{{name}}</option> {{/each}}
+					</select>
+					<label>To</label>
+					<select id="to" name="to" class="w-32">
+						{{#each accounts}} <option value="{{name}}">{{name}}</option> {{/each}}
+					</select>
+					<label>Amount</label>
+					<input type="number" name="amount" class="w-32">
+					<input type="submit">
+				</form>
+			</div>
+			</div>
+			<div>
+				<ol id="transfer-status">{{#each accounts}} <li> {{name}} :: {{balance}}</li> {{/each}}</ol>
+			</div>
+		</div>
 		<ul id="accounts"></ul>
 	</body>
 </html>
