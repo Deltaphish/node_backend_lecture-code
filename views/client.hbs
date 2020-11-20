@@ -3,9 +3,17 @@
 	<head>
 	</head>
 	<body>
+		{{#if status_exists}}
+				{{#if status}}
+					<p>The transfer was a success!</p>
+				{{else}}
+					<p>The transfer failed...</p>
+				{{/if}}
+		{{/if}}
+
 		<h1>SafeBank [secrect managment client]</h1>
 		<h2>Transfer tool</h2>
-		<form>
+		<form method="POST" action="/transfer">
 			<label>From</label>
 			<input type="text" name="from">
 			<label>To</label>
@@ -14,7 +22,7 @@
 			<input type="number" name="amount">
 			<input type="submit">
 		</form>
-		<h3 id="transfer-status">{{#each title}} <p> {{name}} :: {{balance}}</p> {{/each}}</p></h3>
+		<h3 id="transfer-status">{{#each accounts}} <p> {{name}} :: {{balance}}</p> {{/each}}</p></h3>
 		<ul id="accounts"></ul>
 	</body>
 </html>
