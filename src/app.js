@@ -10,6 +10,8 @@ app.get('/', (req,res) => {
 
 app.get('/balance', (req,res) => {
 
+	//Validate Input
+
 	if(!req.query.name){
 		res.status(404).send("Please specify the name of the account")
 		return
@@ -22,12 +24,16 @@ app.get('/balance', (req,res) => {
 		return
 	}
 
+	// Check balance
+
 	const balance = bank.account_balance(name)
 	res.send(`current account balance for ${name}: ${balance}`);
 })
 
 
 app.get('/transfer', (req,res) => {
+
+	// Validate Input
 
 	if(!req.query.to){
 		res.status(400).send("Please specify the name of the sender")
@@ -47,6 +53,8 @@ app.get('/transfer', (req,res) => {
 	const from = req.query.from
 	const to = req.query.to
 	const amount = parseInt(req.query.amount)
+
+	// Run transfer
 
 	if(!bank.account_exists(from) || !bank.account_exists(to)){
 		res.status(404).send("No account found...")
