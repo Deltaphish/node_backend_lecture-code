@@ -4,7 +4,8 @@ class Bank {
 	}
 
 	iter_accounts() {
-		return this.accounts.entries()
+		return Array.from(this.accounts.entries())
+				.map((account) => ({name: account[0], balance: account[1]}));
 	}
 
 	account_exists(name){

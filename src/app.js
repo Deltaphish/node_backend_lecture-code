@@ -1,11 +1,13 @@
 const express = require('express')
 const SafeBank = require('./bank.js')
+
 const app = express()
 const bank = SafeBank.bank;
 const port = 3000;
 
 app.get('/', (req,res) => {
-	res.sendFile(__dirname + "/client.html");
+	const accounts = bank.iter_accounts();
+	res.render('client', {title: accounts});
 })
 
 app.get('/balance', (req,res) => {
@@ -70,6 +72,8 @@ app.get('/transfer', (req,res) => {
 
 	res.send(`The amount of ${amount} has been transfered from ${from} to ${to}`)
 })
+
+app.set('view engine', 'hbs')
 
 app.listen(port, () => {
 	console.log(`SafeBank is running on http://localhost:${port}`)
