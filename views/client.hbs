@@ -10,13 +10,13 @@
 
 		{{#if status_exists}}
 				{{#if status}}
-					<p>The transfer was a success!</p>
+					<p class="text-white bg-green-400">The transfer was a success!</p>
 				{{else}}
-					<p>The transfer failed...</p>
+					<p class="text-white bg-red-400">The transfer failed...</p>
 				{{/if}}
 		{{/if}}
 		<div class="flex flex-row flex-wrap">
-			<div class="bg-yellow-500 pb-5 w-96  rounded shadow">
+			<div class="bg-yellow-500 pb-5 sm:w-96  rounded shadow w-full">
 				<div class="bg-purple-900 mb-3 rounded shadow h-auto">
 					<h1 class="text-4xl text-gray-100 text-center">SafeBank</h1>
 					<h2 class="text-xl text-gray-100 text-center"> [secrect managment client] </h2>
@@ -45,7 +45,7 @@
 				</div>
 			</div>
 			<div class="bg-purple-700 flex-grow p-2">
-				<table class="border-2 border-blue-800 rounded w-full bg-purple-400 max-w-screen-md">
+				<table class="border-4 border-purple-900 shadow w-full bg-purple-400 max-w-screen-md">
 					<thead>
 						<tr>
 							<th class="border border-blue-800 text-gray-200">Name</th>
