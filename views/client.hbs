@@ -6,7 +6,7 @@
 		<link href="/tailwind.css" rel="stylesheet">
 		<link href="/style.css" rel="stylesheet">
 	</head>
-	<body class="bg-gray-100">
+	<body class="bg-purple-700">
 
 		{{#if status_exists}}
 				{{#if status}}
@@ -15,28 +15,28 @@
 					<p>The transfer failed...</p>
 				{{/if}}
 		{{/if}}
-		<div class="grid grid-cols-3">
-			<div class="bg-yellow-500 pb-5">
-				<div class="bg-white mb-3 rounded shadow">
-					<h1 class="text-4xl text-blue-400 text-center">SafeBank</h1>
-					<h2 class="text-xl text-blue-400 text-center"> [secrect managment client] </h2>
+		<div class="flex flex-row flex-wrap">
+			<div class="bg-yellow-500 pb-5 w-96  rounded shadow">
+				<div class="bg-purple-900 mb-3 rounded shadow h-auto">
+					<h1 class="text-4xl text-gray-100 text-center">SafeBank</h1>
+					<h2 class="text-xl text-gray-100 text-center"> [secrect managment client] </h2>
 				</div>
 				<div >
-					<form method="POST" action="/transfer" class=" mx-auto grid grid-cols-3 gap-y-3 bg-blue-100 mx-2 w-3/4 p-2 rounded shadow">
+					<form method="POST" action="/transfer" class=" mx-auto grid grid-cols-3 gap-y-3 bg-purple-400 mx-2 w-3/4 p-2 rounded shadow">
 
-						<label class="">From</label>
+						<label class="text-white">From</label>
 						<select id="from" name="from" class="col-span-2">
 							{{#each accounts}} <option value="{{name}}">{{name}}</option> {{/each}}
 						</select>
 
 
-						<label class="">To</label>
+						<label class="text-white">To</label>
 						<select id="to" name="to" class="col-span-2 justify-end" >
 							{{#each accounts}} <option value="{{name}}">{{name}}</option> {{/each}}
 						</select>
 
 
-						<label class="">Amount</label>
+						<label class="text-white">Amount</label>
 						<input type="number" name="amount" class="col-start-3">
 
 
@@ -44,8 +44,24 @@
 					</form>
 				</div>
 			</div>
-			<div class="bg-red-100 col-span-2">
-				<ol id="transfer-status">{{#each accounts}} <li> {{name}} :: {{balance}}</li> {{/each}}</ol>
+			<div class="bg-purple-700 flex-grow p-2">
+				<table class="border-2 border-blue-800 rounded w-full bg-purple-400 max-w-screen-md">
+					<thead>
+						<tr>
+							<th class="border border-blue-800 text-gray-200">Name</th>
+							<th class="border border-blue-800 text-gray-200">Balance</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each accounts}} 
+							<tr>
+								<td class="ml-3 border border-blue-800 text-gray-200">{{name}}</td>
+								<td class="text-right border border-blue-800 text-gray-200">{{balance}} sek</td> 
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+				<ol id="transfer-status"></ol>
 			</div>
 		</div>
 		<ul id="accounts"></ul>
