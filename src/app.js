@@ -81,8 +81,6 @@ app.post('/transfer', (req,res) => {
 	
 	const transfer_result = bank.account_transfer(from,to,amount)
 	
-	console.log(transfer_result);
-
 	if(!transfer_result){
 		res.redirect("/?transfer=failed")
 		return
