@@ -22,25 +22,25 @@
 					<h2 class="text-xl text-gray-100 text-center"> [secrect managment client] </h2>
 				</div>
 				<div >
-					<form method="POST" action="/transfer" class=" mx-auto grid grid-cols-3 gap-y-3 bg-purple-400 mx-2 w-3/4 p-2 rounded shadow">
+					<form method="POST" action="/transfer" class=" mx-auto grid grid-cols-3 gap-y-6 bg-purple-400 mx-2 w-3/4 p-2 rounded shadow">
 
 						<label class="text-white">From</label>
-						<select id="from" name="from" class="col-span-2">
+						<select id="from" name="from" class="col-span-2 rounded cursor-pointer focus:outline-none focus:ring focus:border-blue-300 " required>
 							{{#each accounts}} <option value="{{name}}">{{name}}</option> {{/each}}
 						</select>
 
 
 						<label class="text-white">To</label>
-						<select id="to" name="to" class="col-span-2 justify-end" >
+						<select id="to" name="to" class="col-span-2 justify-end rounded cursor-pointer focus:outline-none focus:ring focus:border-blue-300 " required >
 							{{#each accounts}} <option value="{{name}}">{{name}}</option> {{/each}}
 						</select>
 
 
 						<label class="text-white">Amount</label>
-						<input type="number" name="amount" class="col-start-3">
+						<input type="number" name="amount" class="col-start-3 rounded cursor-text focus:outline-none focus:ring focus:border-blue-300 " required>
 
 
-						<input class="col-start-3" type="submit" value="submit">
+						<input class="col-start-3 rounded cursor-pointer transition duration-200 ease-in-out bg-white text-black hover:bg-green-500 hover:text-white hover:shadow " type="submit" value="submit">
 					</form>
 				</div>
 			</div>
