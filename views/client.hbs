@@ -4,6 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link href="/tailwind.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
 	</head>
 	<body class="bg-gray-100">
 
@@ -14,27 +15,36 @@
 					<p>The transfer failed...</p>
 				{{/if}}
 		{{/if}}
-		<div class="grid grid-cols-2">
-			<div>
-			<h1>SafeBank [secrect managment client]</h1>
-			<h2>Transfer tool</h2>
-			<div>
-				<form method="POST" action="/transfer" class="flex flex-col">
-					<label>From</label>
-					<select id="from" name="from" class="w-32">
-						{{#each accounts}} <option value="{{name}}">{{name}}</option> {{/each}}
-					</select>
-					<label>To</label>
-					<select id="to" name="to" class="w-32">
-						{{#each accounts}} <option value="{{name}}">{{name}}</option> {{/each}}
-					</select>
-					<label>Amount</label>
-					<input type="number" name="amount" class="w-32">
-					<input type="submit">
-				</form>
+		<div class="grid grid-cols-3">
+			<div class="bg-yellow-500 pb-5">
+				<div class="bg-white mb-3 rounded shadow">
+					<h1 class="text-4xl text-blue-400 text-center">SafeBank</h1>
+					<h2 class="text-xl text-blue-400 text-center"> [secrect managment client] </h2>
+				</div>
+				<div >
+					<form method="POST" action="/transfer" class=" mx-auto grid grid-cols-3 gap-y-3 bg-blue-100 mx-2 w-3/4 p-2 rounded shadow">
+
+						<label class="">From</label>
+						<select id="from" name="from" class="col-span-2">
+							{{#each accounts}} <option value="{{name}}">{{name}}</option> {{/each}}
+						</select>
+
+
+						<label class="">To</label>
+						<select id="to" name="to" class="col-span-2 justify-end" >
+							{{#each accounts}} <option value="{{name}}">{{name}}</option> {{/each}}
+						</select>
+
+
+						<label class="">Amount</label>
+						<input type="number" name="amount" class="col-start-3">
+
+
+						<input class="col-start-3" type="submit" value="submit">
+					</form>
+				</div>
 			</div>
-			</div>
-			<div>
+			<div class="bg-red-100 col-span-2">
 				<ol id="transfer-status">{{#each accounts}} <li> {{name}} :: {{balance}}</li> {{/each}}</ol>
 			</div>
 		</div>
